@@ -64,7 +64,6 @@ export default new Vuex.Store({
   actions: {
     // SOCKET ERROR
     [actions.SOCKET_ERROR] (state, error) {
-      console.log(`Socket error: ${error}`)
       state.commit(mutations.ADD_MESSAGE, {
         type: 'system',
         message: error
@@ -89,7 +88,6 @@ export default new Vuex.Store({
       const user = context.getters.userBySocketId(data.socketId)
       if (!user) return
       if (context.state.notificationsEnabled && !context.state.windowFocused) {
-        console.log('play sound')
         notificationSound.play()
       }
       context.commit(mutations.ADD_MESSAGE, {
