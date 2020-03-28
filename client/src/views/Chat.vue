@@ -66,7 +66,6 @@ export default {
     },
     changeName (name) {
       localStorage.setItem('username', name)
-      console.log('set new name: ', name)
       this.$store.dispatch(actions.SET_USERNAME, name)
     }
   },
