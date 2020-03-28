@@ -9,13 +9,6 @@ import mutations from './store/mutations'
 
 export default {
   created () {
-    setTimeout(() => {
-      console.log(this.$socket)
-      this.$socket.close()
-      setTimeout(() => {
-        this.$socket.connect()
-      }, 2000)
-    }, 4000)
     window.onfocus = () => {
       console.log('window focused')
       this.$store.commit(mutations.SET_WINDOW_FOCUSED, true)
