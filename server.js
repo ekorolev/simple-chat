@@ -31,7 +31,6 @@ io.on('connect', socket => {
 
     // save message to the redis
     await lpushAsync('chat-history', JSON.stringify(record))
-    await ltrimAsync('chat-history', 0, 999)
   })
 
   // when user tries to post new private message

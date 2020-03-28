@@ -6,8 +6,8 @@ import eventNames from '../../../eventNames'
 import { v4 } from 'uuid'
 
 Vue.use(Vuex)
-const notificationSound = new Audio('/notify.mp3')
-notificationSound.volume = 0.3
+
+const SOUNDS = [1, 2, 3, 4, 5, 6].map(n => new Audio(`/notify0${n}.mp3`))
 
 export default new Vuex.Store({
   state: {
@@ -84,11 +84,12 @@ export default new Vuex.Store({
     },
 
     // On new socket message
-    [actions.SOCKET_MESSAGE] (context, data) {
+    async [actions.SOCKET_MESSAGE] (context, data) {
       const user = context.getters.userBySocketId(data.socketId)
       if (!user) return
       if (context.state.notificationsEnabled && !context.state.windowFocused) {
-        notificationSound.play()
+        const number = Math.floor(Math.random() * 6)
+        SOUNDS[number].play()
       }
       context.commit(mutations.ADD_MESSAGE, {
         username: user.username,
