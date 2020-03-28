@@ -6,9 +6,14 @@
       system: message.type === 'system'
     }"
   >
-    <span class="name" v-if="message.type==='public'">{{ message.username }}</span>
-    <span class="text">{{ message.message }}</span>
-    <span class="timestamp">{{ message.timestamp | moment('LT') }}</span>
+    <div class="delimiter" v-if="message.type==='delimiter'">
+      <span>{{ message.timestamp | moment('LL')}}</span>
+    </div>
+    <div class="not-delimiter" v-else>
+      <span class="name" v-if="message.type==='public'">{{ message.username }}</span>
+      <span class="text">{{ message.message }}</span>
+      <span class="timestamp">{{ message.timestamp | moment('LT') }}</span>
+    </div>
   </div>
 </template>
 
@@ -47,4 +52,13 @@ export default {
     font-size 10px
     color #fae7cb
     padding-left 5px
+
+  .delimiter
+    width 100%
+    text-align center
+    span
+      background: #808080
+      border-radius 8px
+      padding 3px 8px
+      margin 5px
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <chat-container
-      :messages="messages"
+      :messages="delimitMessages"
       @newMessage="postNewMessage"
     />
     <div class="control-panel">
@@ -42,7 +42,23 @@ export default {
       'messages',
       'username',
       'notificationsEnabled'
-    ])
+    ]),
+    delimitMessages () {
+      const result = []
+      let currentDay = null
+      for (let i = 0; i < this.messages.length; i++) {
+        if (currentDay !== new Date(this.messages[i].timestamp).getDate()) {
+          currentDay = new Date(this.messages[i].timestamp).getDate()
+          result.push({
+            type: 'delimiter',
+            timestamp: this.messages[i].timestamp
+          })
+        }
+        result.push(this.messages[i])
+      }
+      console.log(result)
+      return result
+    }
   },
   methods: {
     postNewMessage (message) {
