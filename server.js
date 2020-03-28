@@ -1,11 +1,15 @@
-const io = require('socket.io')()
 const eventNames = require('./eventNames')
 const redisClient = require('redis').createClient()
 const { promisify } = require('util')
 const lpushAsync = promisify(redisClient.lpush).bind(redisClient)
 const lrangeAsync = promisify(redisClient.lrange).bind(redisClient)
-const ltrimAsync = promisify(redisClient.ltrim).bind(redisClient)
-io.attach(8070)
+const fs = require('fs');
+const options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/shlnk.ru/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/shlnk.ru/fullchain.pem')
+}
+const app = require('https').createServer(options)
+const io = require('socket.io').listen(app)
 
 io.on('connect', socket => {
   console.log(`Socket ${socket.id} connected`)
@@ -104,4 +108,8 @@ io.on('connect', socket => {
       io.emit(eventNames.server.clientDisconnected, socket.id)
     }
   })
+})
+
+app.listen(8070, () => {
+  console.log('Server started!');
 })
