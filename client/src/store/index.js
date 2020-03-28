@@ -71,6 +71,19 @@ export default new Vuex.Store({
       })
     },
 
+    [actions.SOCKET_RECONNECT] (context) {
+      // register username
+      if (context.state.username) {
+        context.dispatch(actions.SET_USERNAME, context.state.username)
+      }
+    },
+    [actions.SOCKET_CONNECT] (context) {
+      // register username
+      if (context.state.username) {
+        context.dispatch(actions.SET_USERNAME, context.state.username)
+      }
+    },
+
     // On new socket message
     [actions.SOCKET_MESSAGE] (context, data) {
       const user = context.getters.userBySocketId(data.socketId)

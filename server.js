@@ -61,6 +61,8 @@ io.on('connect', socket => {
 
   // when user tries to change username
   socket.on(eventNames.client.username, async username => {
+    if (socket.username === username) return
+    
     // if the socket set username for the first time, notify all users about new user
     // send message history to the client
     if (!socket.username) {

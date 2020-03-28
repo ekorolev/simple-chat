@@ -9,6 +9,8 @@ export default {
   SOCKET_USERNAME_CHANGED: `socket_${eventNames.server.usernameChanged}`,
   SOCKET_OLD_MESSAGES: `socket_${eventNames.server.oldMessages}`,
   SOCKET_MEMBER_LIST: `socket_${eventNames.server.memberList}`,
+  SOCKET_RECONNECT: 'socket_reconnect',
+  SOCKET_CONNECT: 'socket_connect',
 
   POST_NEW_MESSAGE: 'postNewMessage',
   SET_USERNAME: 'setUsername'
